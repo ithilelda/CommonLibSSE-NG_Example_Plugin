@@ -1,0 +1,38 @@
+{
+    "version": 2,
+    "configurePresets": [
+        {
+            "name": "cxx20r",
+            "displayName": "cxx20 Release",
+            "description": "Sets Visual Studio generator, build and install directory",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                // You can set this two variables to require c++20.
+                // Change 20 to 17 to require c++17. You get the idea.
+                "CMAKE_CXX_STANDARD": "20", 
+                "CMAKE_CXX_STANDARD_REQUIRED": true,
+                // setup vcpkg.
+                "CMAKE_TOOLCHAIN_FILE": "${env:VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "VCPKG_TARGET_TRIPLET": "x64-windows-skse",
+                "VCPKG_HOST_TRIPLET": "x64-windows-skse",
+                "VCPKG_OVERLAY_TRIPLETS": "${sourceDir}/cmake",
+
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}",
+                // force using the multithreaded dynamic (MD) runtime library.
+                "CMAKE_MSVC_RUNTIME_LIBRARY": "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL",
+                "CMAKE_CXX_FLAGS": "/EHsc"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "cxx20r",
+            "description": "",
+            "displayName": "cxx20 Release",
+            "configurePreset": "cxx20r",
+            "configuration": "Release"
+        }
+    ]
+}
