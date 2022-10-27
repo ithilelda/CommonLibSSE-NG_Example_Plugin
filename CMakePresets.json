@@ -5,6 +5,8 @@
             "name": "cxx20r",
             "displayName": "cxx20 Release",
             "description": "Sets Visual Studio generator, build and install directory",
+            // I changed this so that we may use c++20's modulized std library.
+            // ninja doesn't support modules.
             "generator": "Visual Studio 17 2022",
             "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
@@ -22,6 +24,7 @@
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}",
                 // force using the multithreaded dynamic (MD) runtime library.
                 "CMAKE_MSVC_RUNTIME_LIBRARY": "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL",
+                // add compiler flags here.
                 "CMAKE_CXX_FLAGS": "/EHsc"
             }
         }
